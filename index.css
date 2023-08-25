@@ -1,0 +1,118 @@
+:root {
+  --nav_width: 240px;
+}
+body {
+  margin: 0;
+  background-color: #00000010;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+header {
+  height: 80px;
+  background: #00000020;
+}
+div.container {
+  display: flex;
+  height: calc(100vh - 80px);
+}
+div.content {
+  background: #00000020;
+  flex: 1 0 calc(100% - var(--nav_width));
+}
+
+aside {
+  background: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column;
+  flex: 1 0 var(--nav_width);
+  max-width: var(--nav_width);
+  padding: 20px 10px 20px 10px;
+  transition: 0.2s; /* smooth expanding */
+}
+
+nav ul:is(.nav-items, .nav-sub_items) {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+nav ul.nav-sub_items {
+  /* Collapse all sub menu by default*/
+  visibility: hidden;
+  max-height: 0;
+  overflow: hidden; /* Hide content out of the submenu height */
+  transition: linear 0.2s; /* smooth displaying, expanding*/
+}
+nav a.nav-sub_item {
+  margin-left: 30px;
+}
+
+nav a:is(.nav-item, a.nav-sub_item) {
+  align-items: center;
+  border-radius: 8px;
+  display: flex;
+  height: 40px;
+  padding: 4px 10px 4px 10px;
+  transition: 0.2s; /*smooth hover*/
+}
+nav a:is(.nav-item, .nav-sub_item):hover {
+  background-color: #0000000a;
+  color: #000000a0;
+}
+nav svg.item-icon {
+  width: 24px;
+  height: 24px;
+  /* margin-right: 8px; */
+}
+nav span.item-text {
+  padding: 0 8px;
+}
+nav svg.item-icon-arrow {
+  margin: 0 0 0 auto;
+  transition: 0.2s; /*smooth rotate when expanding*/
+}
+
+/* =====================
+Style for expanded sub menu
+ */
+aside:not(.collapsed) nav a.nav-item-expanded + ul.nav-sub_items {
+  visibility: visible;
+  max-height: 200px;
+  opacity: 1;
+}
+aside:not(.collapsed) nav a.nav-item-expanded > svg.item-icon-arrow {
+  transform: rotate(180deg);
+}
+
+/* =====================
+Style for the bottom button to collapse the sidebar
+ */
+aside > svg.sidebar-collapser {
+  width: 32px;
+  height: 32px;
+  margin: auto auto 0;
+  transition: 0.2s; /* smooth rotate*/
+}
+
+/* ===========================
+Style for the collapsed sidebar
+ */
+aside.collapsed {
+  max-width: 68px;
+  /* max-width: 120px; */
+}
+aside.collapsed > svg.sidebar-collapser {
+  transform: rotate(-180deg);
+}
+aside.collapsed > nav a:is(.nav-item, .nav-sub_item) {
+  /* width: fit-content; */
+  padding: 4px 14px;
+}
+aside.collapsed > nav span.item-text {
+  display: none;
+}
+aside.collapsed > nav svg.item-icon-arrow {
+  display: none;
+}
